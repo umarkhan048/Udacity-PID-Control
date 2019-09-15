@@ -3,6 +3,21 @@ Self-Driving Car Engineer Nanodegree Program
 
 ---
 
+This project is a part of the Udacity's Self-Driving Car Engineer Nano-Degree. The simulator provided by Udacity is used. The simulator sends the cross-track error, velocity and angle to the PID controller. The PID controller sends steering angle to the simulator. The goal is that the vehicle must successfully drive a lap around the track.
+
+## Control Parameters (P, I & D)
+
+The parameter P (Proportional) is a parameter which is set in proportion to the error. In this case, the simulator sends a cross track error to the controller. The controller sets the proportional gain (Kp) according to the cross track error.
+
+The parameter I (Integral) is a parameter which corrects for the error accumulated over time. An example of this is error in calibration of the steering wheel. When the steering wheel is exactly at zero but the actual angle of wheel does not show a value of zero, this leads to an error which persists over time and must be continuously corrected.
+
+The parameter D (Differential) is a parameters which does not consider the error, instead, it considers the rate of change of error. If the absence of D parameter, a vehicle tracking the lateral reference will try to reduce the deviation from lateral reference, however, it will do so in a constant lateral velocity. This leads to an overshoot. This overshoot will be corrected by the P controller but it may result in an undershoot. The D parameters helps to avoid such osciallations by reducing the corrected value in proportion to the distance from the lateral reference.
+
+## Selection of Parameters
+
+For this project, the parameters are tuned manually. For a start, it is assumed that the steering wheel and driving wheels are perfectly aligned, therefore, there is no accumulation of error over time. For this reason, the I parameter is set to zero. With all the parameters sets to zero, the vehicle was driving perfectly straight. The value of P is chosen rather arbitrarily. For the chosen value of 0.1, the vehicle starts following the road but overshoots after driving for a short time. The value of the D parameter was chosen by trial and error to offset the overshooting behavior. The value is found to be 2.5. 
+
+
 ## Dependencies
 
 * cmake >= 3.5
@@ -36,64 +51,3 @@ Fellow students have put together a guide to Windows set-up for the project [her
 4. Run it: `./pid`. 
 
 Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
-
-## Editor Settings
-
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
-
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
-
-## Code Style
-
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
-
-## Project Instructions and Rubric
-
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
-
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/f1820894-8322-4bb3-81aa-b26b3c6dcbaf/lessons/e8235395-22dd-4b87-88e0-d108c5e5bbf4/concepts/6a4d8d42-6a04-4aa6-b284-1697c0fd6562)
-for instructions and the project rubric.
-
-## Hints!
-
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
-
-## Call for IDE Profiles Pull Requests
-
-Help your fellow students!
-
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to we ensure
-that students don't feel pressured to use one IDE or another.
-
-However! I'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
-
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
-
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
-
-Frankly, I've never been involved in a project with multiple IDE profiles
-before. I believe the best way to handle this would be to keep them out of the
-repo root to avoid clutter. My expectation is that most profiles will include
-instructions to copy files to a new location to get picked up by the IDE, but
-that's just a guess.
-
-One last note here: regardless of the IDE used, every submitted project must
-still be compilable with cmake and make./
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
-# Udacity-PID-Control
